@@ -13,9 +13,9 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
+          {/* <Route path="/login" element={<LoginPage />} /> */}
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/" element={<PrivateRoute element={<HomePage />} />} />
           <Route
             path="/profile"
             element={<PrivateRoute element={<ProfilePage />} />}
