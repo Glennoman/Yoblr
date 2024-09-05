@@ -28,7 +28,6 @@
 .double-bounce2 {
   animation-delay: -1s;
 }
-
 @keyframes bounce {
   0%,
   100% {

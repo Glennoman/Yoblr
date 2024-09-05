@@ -6,11 +6,12 @@ import ProfilePage from "./pages/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
+import SwipeCards from "./components/SwipeCards";
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="min-h-screen bg-gradient-to-b from-pink-500 to-orange-500/80">
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -20,6 +21,7 @@ function App() {
             path="/profile"
             element={<PrivateRoute element={<ProfilePage />} />}
           />
+          <Route path="/get-started" element={<SwipeCards />} />
         </Routes>
       </div>
     </Router>

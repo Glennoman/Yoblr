@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/yoblr-white-transparent.svg";
 
 const Navbar = () => {
   const handleLogout = () => {
@@ -7,9 +8,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <h1>Yobler</h1>
-      <ul>
+    <nav className="flex justify-between p-3">
+      <div className="">
+        <Link to="/">
+          <img src={logo} className=" w-fit" />
+        </Link>
+      </div>
+      <ul className="flex gap-5">
         <li>
           <Link to="/">Home</Link>
         </li>
