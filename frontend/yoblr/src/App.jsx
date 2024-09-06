@@ -13,7 +13,7 @@ import AboutUsPage from "./pages/AboutUsPage";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-pink-500 to-orange-500/80">
+      <div className="min-h-full bg-gradient-to-b from-pink-500 to-orange-500/80">
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
