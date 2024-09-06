@@ -16,6 +16,7 @@ const Navbar = () => {
   const [hoverRefProduct, isHoveredProduct] = UseHover();
   const [hoverRefAbout, isHoveredAbout] = UseHover();
   const [hoverRefRegister, isHoveredRegister] = UseHover();
+  const [hoverRefLogout, isHoveredLogout] = UseHover();
 
   return (
     <nav className="flex justify-between p-3 px-6 bg-tertiary rounded-b-sm md:bg-black/80">
@@ -105,7 +106,14 @@ const Navbar = () => {
       )}
       <ul className="flex gap-5">
         <li>
-          <Link to="/login" onClick={handleLogout}>
+          <Link
+            to="/login"
+            ref={hoverRefLogout}
+            className={`active-hover ${
+              isHoveredLogout ? "active-hover-hovered" : ""
+            }`}
+            onClick={handleLogout}
+          >
             Logout
           </Link>
         </li>
