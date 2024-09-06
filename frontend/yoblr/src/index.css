@@ -47,6 +47,9 @@ html {
 .test {
   border: 2px solid black;
 }
+.test-white {
+  border: 2px solid white;
+}
 
 a {
   font-weight: 500;

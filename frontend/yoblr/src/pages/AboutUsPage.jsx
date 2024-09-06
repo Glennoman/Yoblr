@@ -7,7 +7,7 @@ const AboutUsPage = () => {
         <h1 className="text-white font-bold italic justify-center items-center pb-10 sm:text-xl md:text-3xl lg:text-4xl text-center">
           Destinations
         </h1>
-        <p className="text-white text-base m-7 text-left leading-relaxed w-[60%] xs:text-sm md:text-lg lg:text-xl sm:max-w-[95%] mx-auto">
+        <p className="text-white text-base m-7 text-left leading-relaxed w-[60%] md:w-fit xs:text-sm md:text-lg lg:text-xl sm:max-w-[95%] mx-auto">
           Need someone to brave the crowds at a festival with you? Or maybe you
           just want someone who cares about climate change as much as you do.
           With 55 billion matches to date, we’re no stranger to making

@@ -6,8 +6,8 @@ const SwipeCards = () => {
   console.log(cards);
 
   return (
-    <div className="w-screen">
-      <div className="grid h-[500px] w-full place-items-center">
+    <div className="w-screen h-full ">
+      <div className="grid h-svh w-full place-items-center">
         {cards.map((card, index) => {
           return (
             <Card

@@ -19,7 +19,7 @@ const Navbar = () => {
   const [hoverRefLogout, isHoveredLogout] = UseHover();
 
   return (
-    <nav className="flex justify-between p-3 px-6 bg-tertiary rounded-b-sm md:bg-black/80">
+    <nav className="flex justify-between p-3 px-6 bg-tertiary rounded-b-sm md:bg-tertiary">
       <Link to="/">
         <img src={logo} className="w-fit" alt="Yoblr Logo" />
       </Link>
@@ -78,7 +78,7 @@ const Navbar = () => {
 
       {/* Mobile Menu (full screen) */}
       {menuOpened && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center text-white">
+        <div className="fixed inset-0 z-50 bg-tertiary/95 flex flex-col items-center justify-start -mb-1 pt-32 text-white">
           <button
             onClick={toggleMenu}
             className="absolute top-5 right-5 text-white text-2xl"
