@@ -9,10 +9,12 @@ import RegisterPage from "./pages/RegisterPage";
 import SwipeCards from "./components/SwipeCards";
 import ProductPage from "./pages/ProductPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <Router>
+    <>
+        <Router>
       <div className="min-h-full bg-gradient-to-b from-pink-500 to-orange-500/80">
         <Navbar />
         <Routes>
@@ -27,8 +29,13 @@ function App() {
           />
           <Route path="/get-started" element={<SwipeCards />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
+
+    </>
+
+    
   );
 }
 
