@@ -1,23 +1,28 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
+import { Link } from "react-router-dom";
+import { logout } from "../features/authSlice";
+import { useDispatch } from "react-redux";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/auth/register", {
+      const res = await axiosInstance.post("/api/auth/register", {
         name,
         email,
         password,
       });
-      localStorage.setItem("token", response.data.token);
+      dispatch(logout(res.data.token));
       navigate("/"); // Redirect to home page or wherever you want
     } catch (err) {
       if (err.response && err.response.data && err.response.data.msg) {
@@ -187,7 +192,7 @@ const RegisterPage = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-white border border-gray-300 w-full text-sm text-white pl-4 pr-10 py-2.5 rounded-md outline-blue-500"
+                    className="bg-white border border-gray-300 w-full text-sm text-tertiary pl-4 pr-10 py-2.5 rounded-md outline-blue-500"
                     placeholder="Enter password"
                   />
                   <svg
@@ -206,7 +211,9 @@ const RegisterPage = () => {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                    value={acceptTerms}
+                    required
+                    onChange={(e) => setAcceptTerms(e.target.value)}
                     className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-md"
                   />
                   <label
@@ -227,7 +234,7 @@ const RegisterPage = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-b from-pink-500 to-orange-500/80 text-white py-2.5 rounded-md text-sm tracking-wide"
+                  className="w-full bg-gradient-to-b from-pink-500 to-orange-500/80 hover:underline text-white py-2.5 rounded-md text-sm tracking-wide"
                 >
                   Create Account
                 </button>
@@ -235,12 +242,12 @@ const RegisterPage = () => {
             </div>
             <p className="text-white text-sm mt-6 text-center">
               Already have an account?
-              <a
-                href="javascript:void(0);"
+              <Link
+                to="/login"
                 className="text-orange-500/70 font-semibold hover:underline ml-1"
               >
                 Login here
-              </a>
+              </Link>
             </p>
           </form>
         </div>

@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import SwipeCards from "./components/SwipeCards";
 import ProductPage from "./pages/ProductPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import ArrowDown from "./components/ArrowDown";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           />
           <Route path="/get-started" element={<SwipeCards />} />
         </Routes>
+        <ProductPage />
       </div>
     </Router>
   );

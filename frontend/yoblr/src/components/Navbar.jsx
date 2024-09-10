@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/yoblr-white-transparent.svg";
 import UseHover from "../hooks/UseHover";
 import FlyoutMenu from "./FlyoutMenu";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../features/authSlice";
+import { checkLogin } from "../features/authSlice";
 
 const Navbar = () => {
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-  };
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Get login state from Redux
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkLogin());
+  }, [dispatch]);
 
   const [menuOpened, setMenuOpened] = useState(false);
   const toggleMenu = () => setMenuOpened(!menuOpened);
@@ -16,6 +22,7 @@ const Navbar = () => {
   const [hoverRefProduct, isHoveredProduct] = UseHover();
   const [hoverRefAbout, isHoveredAbout] = UseHover();
   const [hoverRefRegister, isHoveredRegister] = UseHover();
+  const [hoverRefLogin, isHoveredLogin] = UseHover();
   const [hoverRefLogout, isHoveredLogout] = UseHover();
 
   return (
@@ -105,18 +112,34 @@ const Navbar = () => {
         </div>
       )}
       <ul className="flex gap-5">
-        <li>
-          <Link
-            to="/login"
-            ref={hoverRefLogout}
-            className={`active-hover ${
-              isHoveredLogout ? "active-hover-hovered" : ""
-            }`}
-            onClick={handleLogout}
-          >
-            Logout
-          </Link>
-        </li>
+        {/* Conditionally show Login if the user is not logged in */}
+        {!isLoggedIn ? (
+          <li>
+            <Link
+              to="/login"
+              ref={hoverRefLogin}
+              className={`active-hover ${
+                isHoveredLogin ? "active-hover-hovered" : ""
+              }`}
+            >
+              Login
+            </Link>
+          </li>
+        ) : (
+          <li>
+            <Link
+              to="/login"
+              ref={hoverRefLogout}
+              className={`active-hover ${
+                isHoveredLogout ? "active-hover-hovered" : ""
+              }`}
+              onClick={() => dispatch(logout())}
+            >
+              Logout
+            </Link>
+          </li>
+        )}
+        {/* Conditionally show Logout if the user is logged in */}
       </ul>
     </nav>
   );

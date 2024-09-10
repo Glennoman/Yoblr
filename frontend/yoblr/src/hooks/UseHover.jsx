@@ -5,14 +5,23 @@ function useHover() {
   const enter = () => setIsHovered(true);
   const leave = () => setIsHovered(false);
   useEffect(() => {
-    const refCopy = ref;
-    refCopy.current.addEventListener("mouseenter", enter);
-    refCopy.current.addEventListener("mouseleave", leave);
+    const element = ref.current;
+
+    // Ensure the DOM element exists before adding event listeners
+    if (element) {
+      element.addEventListener("mouseenter", enter);
+      element.addEventListener("mouseleave", leave);
+    }
+
+    // Cleanup event listeners on unmount
     return () => {
-      refCopy.current.removeEventListener("mouseenter", enter);
-      refCopy.current.removeEventListener("mouseleave", leave);
+      if (element) {
+        element.removeEventListener("mouseenter", enter);
+        element.removeEventListener("mouseleave", leave);
+      }
     };
-  }, [ref.current]);
+  }, [ref.current]); // Dependency array includes ref.current
+
   return [ref, isHovered];
 }
 export default useHover;

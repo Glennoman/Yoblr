@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ArrowDown from "../components/ArrowDown";
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
           Click here to start
         </button>
       </Link>
+      <ArrowDown />
     </div>
   );
 };
