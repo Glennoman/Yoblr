@@ -1,7 +1,4 @@
 import React from "react";
-import xIcon from "../assets/footer/x.svg";
-import instagramIcon from "../assets/footer/instagram.svg";
-import facebookIcon from "../assets/footer/facebook.svg";
 
 function MainFoot() {
   return (
