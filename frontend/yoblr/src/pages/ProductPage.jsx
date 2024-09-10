@@ -4,7 +4,7 @@ import employee from "../assets/For_Employees.jpg";
 
 const ProductPage = () => {
   return (
-    <div className="flex justify-center pb-10" id="product-page">
+    <div className="flex justify-center pb-80" id="product-page">
       <div className="grid xl:grid-cols-2 md:grid-cols-2 gap-6 w-fit">
         <div className="p-6 bg-tertiary rounded-3xl w-[600px] h-[400px]">
           <h3 className="h3 text-primary">For Employees</h3>

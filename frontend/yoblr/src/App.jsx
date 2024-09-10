@@ -30,6 +30,8 @@ function App() {
             />
             <Route path="/get-started" element={<SwipeCards />} />
           </Routes>
+          <ProductPage />
+          <Footer />
         </div>
       </Router>
     </>
