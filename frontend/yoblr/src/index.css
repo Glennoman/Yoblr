@@ -51,6 +51,14 @@ html {
   border: 2px solid white;
 }
 
+/* ----- Swin's Additions ----- */
+
+.footer-heading {
+  @apply mb-[.5em] font-semibold;
+}
+
+/* ---- Swins Additions End --- */
+
 a {
   font-weight: 500;
   color: white;
