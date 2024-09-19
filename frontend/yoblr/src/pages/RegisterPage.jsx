@@ -34,9 +34,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="font-[sans-serif] bg-black/20 flex lg:flex lg:items-center md:h-full lg:h-screen p-4">
+    <div className="bg-tertiary flex lg:flex lg:items-center md:h-full lg:h-screen p-4">
       <div className="w-full max-w-4xl md:flex lg:flex mx-auto">
-        <div className="bg-tertiary grid md:grid-cols-1 lg:grid-cols-2 gap-16 w-full h-fit sm:p-8 p-6 shadow-md rounded-xl overflow-hidden">
+        <div className="bg-#1B1F29 border border-border grid md:grid-cols-1 lg:grid-cols-2 gap-16 w-full h-fit sm:p-8 p-6 shadow-md rounded-xl overflow-hidden">
           <div className="md:order-1 space-y-6">
             <h3 className="text-white mb-16 text-2xl text-center font-bold">
               Get Started
@@ -140,7 +140,7 @@ const RegisterPage = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="bg-white border border-gray-300 w-full text-sm text-gray-800 pl-4 pr-10 py-2.5 rounded-md outline-blue-500"
+                    className="bg-tertiary border-border border-2 w-full text-sm text-primary pl-4 pr-10 py-2.5 rounded-md outline-border"
                     placeholder="Enter name"
                   />
                   <svg
@@ -165,7 +165,7 @@ const RegisterPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-white border border-gray-300 w-full text-sm text-gray-800 pl-4 pr-10 py-2.5 rounded-md outline-blue-500"
+                    className="bg-tertiary border-2 border-border w-full text-sm text-primary pl-4 pr-10 py-2.5 rounded-md outline-border"
                     placeholder="Enter email"
                   />
                   <svg
@@ -192,7 +192,7 @@ const RegisterPage = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-white border border-gray-300 w-full text-sm text-tertiary pl-4 pr-10 py-2.5 rounded-md outline-blue-500"
+                    className="bg-tertiary border-2 border-border w-full text-sm text-tertiary pl-4 pr-10 py-2.5 rounded-md outline-border"
                     placeholder="Enter password"
                   />
                   <svg
@@ -212,9 +212,10 @@ const RegisterPage = () => {
                     name="remember-me"
                     type="checkbox"
                     value={acceptTerms}
+                    accent-color="#111418"
                     required
-                    onChange={(e) => setAcceptTerms(e.target.value)}
-                    className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded-md"
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                    className="h-4 w-4 shrink-0 appearance-none border border-border checked:bg-border checked:border-border shadow-sm focus:border-border focus:ring focus:ring-border focus:ring-opacity-50"
                   />
                   <label
                     htmlFor="remember-me"
@@ -234,7 +235,7 @@ const RegisterPage = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-b from-pink-500 to-orange-500/80 hover:underline text-white py-2.5 rounded-md text-sm tracking-wide"
+                  className="w-full shadow-xl bg-gradient-to-b from-secondary to-secondaryYellow/60 hover:underline focus:outline-none text-tertiary font-semibold py-2.5 rounded-md tracking-wide"
                 >
                   Create Account
                 </button>

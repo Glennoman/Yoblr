@@ -2,12 +2,12 @@ import React from "react";
 
 function MainFoot() {
   return (
-    <div className="w-full bg-tertiary rounded-t-sm pt-10">
+    <div className="w-full h-full bg-tertiary rounded-t-sm pt-10 xs:w-fit xs:h-auto">
       <footer className="w-[65%] mx-auto">
-        <div className="flex justify-center gap-8 py-4">
-          <div className="basis-1/6 ">
-            <h5 className="footer-heading text-primary">Section</h5>
-            <ul className=" ">
+        <div className="flex justify-center gap-8 py-4 xs:flex-col">
+          <div className="flex gap-20 flex-grow-0 basis-3/5 xs:flex xs:gap-20 mx-auto">
+            <ul className="flex flex-col">
+              <h5 className="footer-heading text-primary">Section</h5>
               <li className="nav-item mb-2">
                 <a href="#" className="">
                   Home
@@ -34,68 +34,37 @@ function MainFoot() {
                 </a>
               </li>
             </ul>
-          </div>
 
-          <div className="basis-1/6">
-            <h5 className="footer-heading text-primary">Section</h5>
-            <ul className="">
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  FAQs
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  About
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="basis-1/6">
-            <h5 className="footer-heading text-primary">Section</h5>
-            <ul className="nav flex-column">
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  FAQs
-                </a>
-              </li>
-              <li className="nav-item mb-2">
-                <a href="#" className="nav-link p-0 text-muted">
-                  About
-                </a>
-              </li>
-            </ul>
+            <div className="basis-1/6">
+              <h5 className="footer-heading text-primary">Section</h5>
+              <ul className="">
+                <li className="nav-item mb-2">
+                  <a href="#" className="nav-link p-0 text-muted">
+                    Home
+                  </a>
+                </li>
+                <li className="nav-item mb-2">
+                  <a href="#" className="nav-link p-0 text-muted">
+                    Features
+                  </a>
+                </li>
+                <li className="nav-item mb-2">
+                  <a href="#" className="nav-link p-0 text-muted">
+                    Pricing
+                  </a>
+                </li>
+                <li className="nav-item mb-2">
+                  <a href="#" className="nav-link p-0 text-muted">
+                    FAQs
+                  </a>
+                </li>
+                <li className="nav-item mb-2">
+                  <a href="#" className="nav-link p-0 text-muted">
+                    About
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className="basis-1/2 flex justify-end">
@@ -113,11 +82,11 @@ function MainFoot() {
                 <input
                   id="newsletter1"
                   type="text"
-                  className="rounded-md basis-3/4 p-1"
+                  className="rounded-md basis-3/4 p-1 bg-primary"
                   placeholder="Email address"
                 />
                 <button
-                  className="bg-gradient-to-b from-pink-500 to-orange-500/80 hover:bg-orange-600 text-white basis-1/4 rounded-md p-1"
+                  className="bg-gradient-to-b from-secondary to-secondaryYellow hover:bg-orange-600 text-tertiary basis-1/4 rounded-md p-1"
                   type="button"
                 >
                   Subscribe
@@ -127,7 +96,7 @@ function MainFoot() {
           </div>
         </div>
 
-        <div className="flex justify-between border-t border-primary py-4 my-4">
+        <div className="flex justify-between border-t border-primary py-4">
           <p className="text-primary">© 2024 Yoblr, All rights reserved.</p>
           <ul className="flex">
             <li className="ml-[1em]">

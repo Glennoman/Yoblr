@@ -1,8 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const FormModel = require("../models/FormModel");
 
 exports.registerUser = async (req, res) => {
+  console.log("Register route hit", req.body);
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please provide all required fields." });
@@ -64,5 +66,28 @@ exports.getCurrentUserProfile = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+};
+
+exports.submitForm = async (req, res) => {
+  try {
+    const { regform, regform2, selectField, checkbox1, checkbox2, checkbox3 } =
+      req.body;
+    const file = req.file ? req.file.filename : null;
+
+    const form = new FormModel({
+      regform,
+      regform2,
+      selectField,
+      checkbox1,
+      checkbox2,
+      checkbox3,
+      file,
+    });
+
+    await form.save();
+    res.status(200).json({ message: "Form submitted successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: "Error submitting form", error });
   }
 };

@@ -1,36 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Updated import
 import axiosInstance from "../api/axiosInstance";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Updated hook
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [cookies, setCookie] = useCookies(["token"]);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Access login state
 
   const onSubmit = async (e) => {
+    console.log(e); // Logs the entire event object
+    console.log(e.target); // Logs the input element that triggered the event
+    console.log(e.target.value); // Logs the value of the input element
     e.preventDefault();
     try {
       const res = await axiosInstance.post("/api/auth/login", {
         email,
         password,
       });
-      dispatch(login(res.data.token)); // Dispatch login action
-      navigate("/"); // Updated navigation method
+      const token = res.data.token;
+      // Set token in cookies
+      setCookie("token", token, { path: "/", maxAge: 3600 }); // 1 hour
+
+      // Dispatch logina ction redux
+      dispatch(login(token));
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.msg) {
-        setError(err.response.data.msg);
-      } else {
-        setError("Invalid login credentials");
-      }
+      setError("Invalid login credentials");
     }
   };
 
+  // Use useEffect to navigate after successful login
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/choose-role"); // Only navigate after login is successful
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
-    <div className="font-[sans-serif] bg-black/20">
+    <div className="bg-black/20">
       <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-        <div className="grid md:grid-cols-1 lg:grid-cols-2 items-center p-10 gap-10 max-w-6xl w-full rounded-xl bg-tertiary test">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 items-center p-10 gap-10 max-w-6xl w-full rounded-xl bg-tertiary">
           <div>
             <h2 className="lg:text-5xl text-4xl font-extrabold lg:leading-[55px] text-primary">
               Seamless Login for Exclusive Access
@@ -62,7 +76,7 @@ const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                  className="bg-tertiary border-border border-2 w-full text-sm text-primary px-4 py-3.5 rounded-md outline-border focus:bg-transparent"
                   placeholder="Email address"
                 />
               </div>
@@ -74,7 +88,7 @@ const LoginPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                  className="bg-tertiary border-border border-2 w-full text-sm text-primary px-4 py-3.5 rounded-md outline-border focus:bg-transparent"
                   placeholder="Password"
                 />
               </div>
@@ -84,7 +98,7 @@ const LoginPage = () => {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-primary focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 appearance-none text-primary border border-border checked:bg-border checked:tertiary focus:ring-blue-500 rounded"
                   />
                   <label
                     htmlFor="remember-me"
@@ -107,9 +121,9 @@ const LoginPage = () => {
             <div className="!mt-8">
               <button
                 type="submit"
-                className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-gradient-to-b from-pink-500 to-orange-500/80 hover:underline focus:outline-none"
+                className="w-full shadow-xl py-2.5 px-4 font-semibold rounded text-tertiary bg-gradient-to-b from-secondary to-secondaryYellow/60 hover:underline focus:outline-none"
               >
-                <Link to={"/"}>Log in</Link>
+                Log in
               </button>
             </div>
 

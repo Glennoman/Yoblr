@@ -1,11 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Amiko, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 600; */
 
   /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87); */
@@ -25,6 +26,18 @@
 }
 html {
   scroll-behavior: smooth;
+}
+
+input[type="checkbox"] {
+  accent-color: #111418;
+}
+
+select option:hover {
+  box-shadow: 0 0 10px 100px red inset !important;
+  color: white;
+}
+select option:checked {
+  box-shadow: 0 0 10px 100px red inset !important;
 }
 
 /* width */
@@ -133,7 +146,7 @@ h1 {
     @apply medium-15 bg-tertiary px-7 py-2.5 text-white;
   }
   .btn-outline {
-    @apply medium-15 px-7 py-2.5 border-2 border-tertiary;
+    @apply medium-15 px-7 py-2.5;
   }
 
   .btn-secondary {

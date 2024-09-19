@@ -96,7 +96,7 @@ const Card = ({
   return (
     <div className="absolute flex justify-center items-center">
       <motion.div
-        className="relative w-72"
+        className="relative w-[400px]"
         style={{
           x,
           opacity,
@@ -116,7 +116,7 @@ const Card = ({
         <motion.img
           src={url}
           alt="Placeholder alt"
-          className="h-96 w-full origin-bottom rounded-lg bg-white object-cover hover:cursor-grab active:cursor-grabbing"
+          className="h-[620px] w-full origin-bottom rounded-lg bg-white object-cover hover:cursor-grab active:cursor-grabbing"
           style={{
             transition: "0.125s transform",
             boxShadow: isFront
@@ -124,12 +124,30 @@ const Card = ({
               : undefined,
           }}
         />
-        <div className="absolute bottom-0 w-full bg-white rounded-b-lg shadow-lg p-4 text-center">
-          <h3 className="text-lg font-semibold">{job || "Job Title"}</h3>
-          {description && (
-            <p className="text-sm text-gray-600">{description}</p>
-          )}
-          {company && <p className="text-xs text-gray-400">{company}</p>}
+        <div className="absolute bottom-0 w-full bg-white rounded-b-lg shadow-lg p-10 text-center">
+          <div className="flex flex-col">
+            <h3 className="text-lg font-semibold">{job || "Job Title"}</h3>
+            {description && (
+              <p className="text-sm text-gray-600">{description}</p>
+            )}
+            {company && <p className="text-xs text-gray-400">{company}</p>}
+            <div className="flex justify-between">
+              <button onClick={() => setCards((prev) => prev.slice(0, -1))}>
+                <img
+                  src="./src/assets/thumbs_down.png"
+                  alt="thumbs_down"
+                  className="h-16 w-16"
+                />
+              </button>
+              <button onClick={() => setCards((prev) => prev.slice(0, -1))}>
+                <img
+                  src="./src/assets/thumbs_up.png"
+                  alt="thumbs_down"
+                  className="h-16 w-16"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       </motion.div>
     </div>

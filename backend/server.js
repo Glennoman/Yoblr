@@ -24,7 +24,6 @@ if (!process.env.JWT_SECRET) {
 }
 
 app.use("/api/auth", require("./routes/auth"));
-// More routes will go here...
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

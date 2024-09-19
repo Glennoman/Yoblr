@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/yoblr-white-transparent.svg";
 import UseHover from "../hooks/UseHover";
 import FlyoutMenu from "./FlyoutMenu";
@@ -7,14 +7,44 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/authSlice";
 import { checkLogin } from "../features/authSlice";
+import { useCookies } from "react-cookie";
+import axiosInstance from "../api/axiosInstance";
 
 const Navbar = () => {
+  const [user, setUser] = useState(null); // Store user-data
+  const [cookies, setCookie] = useCookies(["token"]); // Token management
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Get login state from Redux
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkLogin());
-  }, [dispatch]);
+    const fetchUserData = async () => {
+      try {
+        const res = await axiosInstance.get("/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`, // Sending token if needed
+          },
+        });
+        setUser(res.data); // Set user data to state
+      } catch (err) {
+        console.error("Error fetching user data", err);
+        setUser(null); // Resetting user data if error
+      }
+    };
+
+    // Fetching data if token exist
+    if (cookies.token) {
+      fetchUserData();
+      dispatch(checkLogin(cookies.token));
+    }
+  }, [cookies.token]);
+
+  const handleLogout = () => {
+    setCookie("token", "", { path: "/", expires: new Date(0) }); // Set expiration date in the past to remove the cookie
+    dispatch(logout()); // Reset user state
+    setUser(null);
+    navigate("/register"); // Dispatch logout action from redux
+  };
 
   const [menuOpened, setMenuOpened] = useState(false);
   const toggleMenu = () => setMenuOpened(!menuOpened);
@@ -133,13 +163,12 @@ const Navbar = () => {
               className={`active-hover ${
                 isHoveredLogout ? "active-hover-hovered" : ""
               }`}
-              onClick={() => dispatch(logout())}
+              onClick={handleLogout}
             >
               Logout
             </Link>
           </li>
         )}
-        {/* Conditionally show Logout if the user is logged in */}
       </ul>
     </nav>
   );
