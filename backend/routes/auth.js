@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
 const authMiddleware = require("../middleware/authMiddleware");
 const {
   registerUser,
@@ -8,6 +7,9 @@ const {
   getCurrentUserProfile,
   submitForm,
 } = require("../controllers/authController");
+const multer = require("multer");
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Register new user
 router.post("/register", registerUser);
@@ -17,16 +19,6 @@ router.post("/login", loginUser);
 
 router.get("/me", authMiddleware, getCurrentUserProfile);
 
-// multer storage and file handling
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
-router.post("/submit-form", submitForm);
+router.post("/submit-form", upload.single("file"), submitForm);
 
 module.exports = router;

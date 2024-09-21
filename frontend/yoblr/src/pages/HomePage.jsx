@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import ArrowDown from "../components/ArrowDown";
 import ProductPage from "../components/ProductPage";
 import BlogSection from "../components/BlogSection";
+import FaqPage from "../components/FaqPage";
 import { motion, AnimatePresence } from "framer-motion";
+import ShinyButton from "../components/ShinyButton";
 
 const heroText = [
   { title: "Matches you with your next career move.." },
@@ -46,9 +48,7 @@ const HomePage = () => {
                 </motion.p>
               </AnimatePresence>
               <Link to="/choose-role">
-                <button className="btn-outline rounded-2xl my-10 hover:outline hover:outline-1 hover:outline-primary ease-in-out xs:w-fit">
-                  Try it out for yourself!
-                </button>
+                <ShinyButton />
               </Link>
               <div className="flex mt-5 gap-4 xs:flex-col">
                 <button
@@ -155,6 +155,7 @@ const HomePage = () => {
         </div>
         <ProductPage />
         <BlogSection />
+        <FaqPage />
       </div>
     </div>
   );

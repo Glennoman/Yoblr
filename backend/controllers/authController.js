@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const supabase = require("../config/supabaseClient");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const FormModel = require("../models/FormModel");
@@ -71,10 +72,48 @@ exports.getCurrentUserProfile = async (req, res) => {
 
 exports.submitForm = async (req, res) => {
   try {
+    console.log("Form submission started");
+    console.log("Request body:", req.body);
+    console.log("Request file:", req.file);
+
     const { regform, regform2, selectField, checkbox1, checkbox2, checkbox3 } =
       req.body;
-    const file = req.file ? req.file.filename : null;
+    let fileUrl = null;
 
+    // Uploading file to Supabase if file is uploaded
+    if (req.file) {
+      console.log("File detected, starting Supabase upload");
+      const file = req.file;
+      const fileExt = file.originalname.split(".").pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+
+      try {
+        const { data, error } = await supabase.storage
+          .from("uploads")
+          .upload(`files/${fileName}`, file.buffer, {
+            contentType: file.mimetype,
+          });
+
+        if (error) {
+          console.error("Supabase upload error:", error);
+          return res
+            .status(403)
+            .json({ success: false, message: error.message, error: error });
+        } else {
+          console.log("File uploaded to Supabase successfully", data);
+          fileUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/uploads/${data.path}`;
+        }
+      } catch (uploadError) {
+        console.error("Error during Supabase upload:", uploadError);
+        return res.status(uploadError.statusCode || 500).json({
+          success: false,
+          message: uploadError.message,
+          error: uploadError,
+        });
+      }
+    }
+
+    console.log("Creating new FormModel");
     const form = new FormModel({
       regform,
       regform2,
@@ -82,12 +121,23 @@ exports.submitForm = async (req, res) => {
       checkbox1,
       checkbox2,
       checkbox3,
-      file,
+      fileUrl,
     });
 
+    console.log("Saving form to database");
     await form.save();
-    res.status(200).json({ message: "Form submitted successfully!" });
+    console.log("Form saved successfully");
+
+    res
+      .status(200)
+      .json({ success: true, message: "Form submitted successfully!" });
   } catch (error) {
-    res.status(500).json({ message: "Error submitting form", error });
+    console.error("Error in submitForm:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error submitting form",
+      error: error.message,
+      stack: error.stack,
+    });
   }
 };

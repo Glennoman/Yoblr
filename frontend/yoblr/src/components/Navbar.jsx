@@ -54,6 +54,7 @@ const Navbar = () => {
   const [hoverRefRegister, isHoveredRegister] = UseHover();
   const [hoverRefLogin, isHoveredLogin] = UseHover();
   const [hoverRefLogout, isHoveredLogout] = UseHover();
+  const [hoverRefSupport, isHoveredSupport] = UseHover();
 
   return (
     <nav className="flex justify-between p-3 px-6 bg-tertiary rounded-b-sm md:bg-tertiary">
@@ -97,6 +98,17 @@ const Navbar = () => {
               }`}
             >
               Register
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="#support"
+              ref={hoverRefSupport}
+              className={`active-hover ${
+                isHoveredSupport ? "active-hover-hovered" : ""
+              }`}
+            >
+              Support
             </Link>
           </li>
         </ul>

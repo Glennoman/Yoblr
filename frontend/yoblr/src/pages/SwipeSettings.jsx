@@ -4,6 +4,7 @@ import axiosInstance from "../api/axiosInstance";
 import RegForm from "../components/RegForm";
 import RegForm_2 from "../components/RegForm2";
 import RegForm_3 from "../components/RegForm_3";
+import { Link } from "react-router-dom";
 
 const SwipeSettings = () => {
   const [stepsComplete, setStepsComplete] = useState(1);
@@ -36,37 +37,44 @@ const SwipeSettings = () => {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
-  // Handle file drop and set file to state
-  const handleDrop = (acceptedFiles) => {
-    setFormData({ ...formData, file: acceptedFiles[0] });
-  };
-
-  // Handle form submission on step 4
   const handleSubmit = async () => {
     const formDataToSend = new FormData();
 
-    // Appending fields to FormData
+    // Append fields to FormData
     for (const key in formData) {
-      formDataToSend.append(key, formData[key]);
+      if (key === "file") {
+        formDataToSend.append("file", formData[key], formData[key].name);
+      } else {
+        formDataToSend.append(key, formData[key]);
+      }
     }
 
     try {
-      // Submitting form data to backend via Axios
+      // Set the correct headers for multipart/form-data
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+
+      // Submitting form data to backend with Axios
       const response = await axiosInstance.post(
         "/api/auth/submit-form",
-        formDataToSend
+        formDataToSend,
+        config
       );
 
       if (response.data.success) {
         console.log("Form submitted successfully");
+      } else {
+        console.error("Submission failed:", response.data);
       }
     } catch (error) {
-      console.error("Error submitting form", error);
+      console.error("Error in submitForm:", error);
     }
   };
+
   return (
     <div className="relative px-4 py-14 bg-tertiary h-screen">
       <div className="p-8 mt-10 bg-black shadow-lg rounded-md w-full max-w-screen-2xl min-h-full mx-auto">
@@ -76,7 +84,9 @@ const SwipeSettings = () => {
             {stepsComplete === 0 && (
               <RegForm formData={formData} handleChange={handleChange} />
             )}
-            {stepsComplete === 1 && <RegForm_2 onDrop={handleDrop} />}
+            {stepsComplete === 1 && (
+              <RegForm_2 setFormData={setFormData} formData={formData} />
+            )}
             {stepsComplete === 2 && (
               <RegForm_3 formData={formData} handleChange={handleChange} />
             )}
@@ -100,12 +110,14 @@ const SwipeSettings = () => {
               Next
             </button>
           ) : (
-            <button
-              className="px-4 py-1 rounded border border-border bg-tertiary text-primary hover:bg-black ease-in-out duration-300"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+            <Link to="/get-started">
+              <button
+                className="px-4 py-1 rounded border border-border bg-tertiary text-primary hover:bg-black ease-in-out duration-300"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            </Link>
           )}
         </div>
       </div>

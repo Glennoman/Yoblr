@@ -1,9 +1,9 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
 
-const RegForm_2 = ({ formData, handleChange, handleDrop }) => {
+const RegForm_2 = ({ setFormData, formData }) => {
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: handleDrop,
+    onDrop: (files) => setFormData({ ...formData, file: files[0] }), // Storing file
     accept: {
       "application/pdf": [],
       "application/msword": [],
@@ -11,7 +11,7 @@ const RegForm_2 = ({ formData, handleChange, handleDrop }) => {
         [],
     },
   });
-
+  console.log(formData);
   return (
     <div>
       <div>
@@ -33,6 +33,7 @@ const RegForm_2 = ({ formData, handleChange, handleDrop }) => {
               {...getInputProps()}
               id="dropzone-file"
               type="file"
+              name="file"
               className="hidden"
             />
             <svg
@@ -57,8 +58,6 @@ const RegForm_2 = ({ formData, handleChange, handleDrop }) => {
             <p className="mt-2 text-xs tracking-wide text-border dark:text-primary">
               Upload or drag & drop your file here.{" "}
             </p>
-
-            <input id="dropzone-file" type="file" className="hidden" />
           </div>
         </div>
       </div>

@@ -19,8 +19,6 @@ import ChooseRole from "./pages/ChooseRole";
 import SwipeSettings from "./pages/SwipeSettings";
 
 function App() {
-  // const location = useLocation();
-  // const hideNavbarFooter = location.pathname === "/choose-role";
   return (
     <>
       <div className="bg-tertiary">
